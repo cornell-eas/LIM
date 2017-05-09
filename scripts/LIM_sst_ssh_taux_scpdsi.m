@@ -183,36 +183,6 @@ Qeigs=diag(Qv);
 save(limParamFile,'tau','X','X1','X2','X3','X4','Ctau','Co','B','B_eigs','Q','Qeofs','Qeigs','Qv',...
      'neig*','q*','lon*','lat*','nlon*','nlat*','inFile*','X*norm','eofFile*','eofDir');
 
-%% Compare filtered data to original
-% requires m_map
-try 
-    figure(1);
-    clf;
-    subplot(211)
-        NN34=X3D_to_nino34(dataStruct1.ssta.data,dataStruct1.X.data,dataStruct1.Y.data);
-        NN34JJA=(NN34(1:12:end)+NN34(2:12:end)+NN34(3:12:end))./3;
-        scpdsiJJA=(dataStruct4.pdsi_pm.data(:,:,6:12:end)+dataStruct4.pdsi_pm.data(:,:,7:12:end)+dataStruct4.pdsi_pm.data(:,:,8:12:end))./3;
-        corrMap0=corr3D(NN34JJA,scpdsiJJA);
-        m_pcolor(XfiltStruct4.lon.data,XfiltStruct4.lat.data,corrMap0');
-        shading flat;
-        colormap(BlueDarkOrange18);
-        caxis([-1 1]);
-        colorbar;    
-
-    subplot(212)
-        ssteofs=XfiltStruct1;
-        NN34smoofilt=X3D_to_nino34(ssteofs.X3D_smoo_anom_filt.data,ssteofs.lon.data,ssteofs.lat.data);
-        NN34smoofiltJJA=(NN34smoofilt(1:12:end)+NN34smoofilt(2:12:end)+NN34smoofilt(3:12:end))./3;
-        scpdsiSmooFiltJJA=(XfiltStruct4.X3D_smoo_anom_filt.data(:,:,1:12:end)+XfiltStruct4.X3D_smoo_anom_filt.data(:,:,2:12:end)+XfiltStruct4.X3D_smoo_anom_filt.data(:,:,3:12:end))./3;
-        corrMap=corr3D(NN34smoofiltJJA,scpdsiSmooFiltJJA);
-        m_pcolor(XfiltStruct4.lon.data,XfiltStruct4.lat.data,corrMap');
-        shading flat;
-        colormap(BlueDarkOrange18);
-        caxis([-1 1]);
-        colorbar;
-catch
-    disp('Failed plotting results. Try downloading and using m_map, or adding it to your path.')
-end
 
 disp(['Results saved in "' limParamFile '"']);
 disp(['EOFs saved in "' eofDir '"'])
