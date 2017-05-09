@@ -45,7 +45,6 @@ for i =1:min(npanes,nr);
         m_text(min(lon4)+.25,min(lat4)+1,num2str(paneq(i)))
     end
     shading flat
-    addstates(1);
     caxis([-1 1])
     set(gca,'xtick',[],'ytick',[])
     
