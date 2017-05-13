@@ -6,8 +6,8 @@ load sessionParams
 %% --------------------------------------------------------------------------------
 
 dataDir='../data/';
-nr=10;
-nYears=50;
+nr=100;
+nYears=100;
 nYearsExtra=1;
 nPar = 24; % this will set the number of workers in the parfor loop, if you
             % are setting up your experiments to run in parallel
@@ -103,7 +103,7 @@ oFileTemplate4=strrep([resultsDir inFile4],'.nc', '.Rn_%s.nc');
 [varname,realm,modid,expid,runid,yrStart,moStart,yrEnd,moEnd]=filename2fileinfo(inFile4);
 oFileTemplate4=strrep(oFileTemplate4,[ind2str(yrStart,nYrDig) ind2str(moStart,2)],[ind2str(1,nYrDig) ind2str(1,2)]);
 oFileTemplate4=strrep(oFileTemplate4,[ind2str(yrEnd,nYrDig) ind2str(moEnd,2)],[ind2str(nYears,nYrDig) ind2str(nMonthsInYear,2)]);
-oFileTemplate4=strrep(oFileTemplate4,expid,['limCntrl' datestr(datenum(now),'yyyymmddHHMM') ]);
+oFileTemplate4=strrep(oFileTemplate4,expid,['limCntrl' dateTag ]);
 
 history4=['From ' inFile4 char(10) ...
           ' using eofs from ' eofFile4 char(10) ...
@@ -130,10 +130,10 @@ if ~isempty(p)
 end
 
 %Uncomment these lines and comment line 132 to use parfor.
-%parpool(nPar) 
-%parfor n =1:nr;
+parpool(nPar) 
+parfor n =1:nr;
 
-for n =1:nr;
+%for n =1:nr;
     
     %randomize start mo
     Xinit=0.0*X(randperm(nt,1),:);
