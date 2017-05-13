@@ -6,8 +6,8 @@ load sessionParams
 %% --------------------------------------------------------------------------------
 
 dataDir='../data/';
-nr=100;
-nYears=100;
+nr=10;
+nYears=50;
 nYearsExtra=1;
 nPar = 24; % this will set the number of workers in the parfor loop, if you
             % are setting up your experiments to run in parallel
@@ -130,10 +130,10 @@ if ~isempty(p)
 end
 
 %Uncomment these lines and comment line 132 to use parfor.
-parpool(nPar) 
-parfor n =1:nr;
+%parpool(nPar) 
+%parfor n =1:nr;
 
-%for n =1:nr;
+for n =1:nr;
     
     %randomize start mo
     Xinit=0.0*X(randperm(nt,1),:);
